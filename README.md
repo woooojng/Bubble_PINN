@@ -64,24 +64,30 @@ python3 train.py -h
 - **NSpde_loss.py**: For the Navier-Stokes PDE equations in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
 - **Train.py**: Neural network training function starting from Initial condition train running and then running for total loss summing with all loss functions.
 - 
-- **NNlayers_Bubble_0.pt**:
-- **IC_Only.pt**:
-- **visualize_Bubble_PINN.py**: Result record of stat.
-- **Initial_Condition_Result_Circle.pdf**: The scripts for training and evaluating the models.
+- **NNlayers_Bubble_0.pt**: Result record of total loss training for network parameter with function net.state_dict()., based on summing up all the loss functions above.
+- **IC_Only.pt**: Result record of Initial condition Binary cross entropy and MSE loss training for network parameter with function net.state_dict()., based only on initial condition loss function above to set initial condition firstly before total training. This training process is important to initialize initial moving boundry of the bubble.
+- **visualize_Bubble_PINN.py**: Result graph of first initial condition training before total training. For initial configuration at time 0, we was able to see the t=0 starting circlular bubble with this graph.
+- **Initial_Condition_Result_Circle.pdf**: The pdf file of the graph of 'visualize_Bubble_PINN.py'.
 - **Train_whole_loop_6.22.html**: Result of whole Train process, containing Initial condition 30,000 iterations training with loss 0.0005 and total loss of all conditions 160,000 iterations training with learning rate .0001, .00001, .000005, .000001.
 
-## Citation
+## Reference
 
-If this work is helpful, please cite as:
+[comment]: # (If this work is helpful, please cite as:)
 
-```bibtex
-@inproceedings{zheng2020replicate,
-  title={Replicate, Walk, and Stop on Syntax: an Effective Neural Network Model for Aspect-Level Sentiment Classification},
-  author={Yaowei, Zheng and Richong, Zhang and Samuel, Mensah and Yongyi, Mao},
-  booktitle={{AAAI}},
-  year={2020}
-}
-```
+<a id="1">[1]</a> 
+S. Hysing,
+S. Turek,
+D. Kuzmin,
+N. Parolini, E. Burman,
+S. Ganesank, and L. Tobiska, 
+Proposal for quantitative benchmark
+computations of bubble dynamics, 
+Ergebnisberichte des Instituts für Angewandte Mathematik, Nummer
+351, Fakultät für Mathematik, TU Dortmund, 2007.
+
+
+<a id="1">[2]</a> 
+C. L. Zhao, Solving allen-cahn and cahn-hilliard equations using the adaptive physics informed neural networks, Communications in Computational Physics 29, 2020.
 
 [comment]: # (## Acknowledgments)
 
