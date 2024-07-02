@@ -57,12 +57,13 @@ python3 train.py -h
 
 ## File Specifications
 
-- **Forward_with_Layer_Setting.py**: Description for the model architecture.
-- **InitialConditionLoss.py**: 
-- **BoundaryLoss.py**: Used functions for data preprocessing.
-- **MvBdry_Coefficient_and_Loss.py**: Description for the LSTM layer.
-- **loss_func.py**: The loss function for optimizing the models.
-- **Train.py**:
+- **Forward_with_Layer_Setting.py**: Neural Network Architecture for layer setting and forward step with x, y, t input/ velocity u, pressure P, density rho viscoscity mu output variables.
+- **InitialConditionLoss.py**: For the equations in chapter 2.2 in [1], Binary Cross Entropy loss function and MSE function associated with these equations is defined.
+- **BoundaryLoss.py**: For the equations on left/right wall and top/bottom outer boundary of domain in chapter 2.2 in [1], MSE function associated with these equations is defined.
+- **MvBdry_Coefficient_and_Loss.py**: For the equations on moving boundary sharp interface in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
+- **NSpde_loss.py**: For the Navier-Stokes PDE equations in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
+- **Train.py**: Neural network training function starting from Initial condition train running and then running for total loss summing with all loss functions.
+- 
 - **NNlayers_Bubble_0.pt**:
 - **IC_Only.pt**:
 - **visualize_Bubble_PINN.py**: Result record of stat.
