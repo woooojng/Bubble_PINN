@@ -42,7 +42,7 @@ git clone https://github.com/hiyouga/RepWalk.git](https://github.com/woooojng/Bu
 
 ## Usage
 
-### Train the model:
+### Train the model at clonned `Diffuse_interface_Bubble_PINN_ver1` directory in terminal:
 
 ```bash
 python3 train.py
@@ -56,8 +56,9 @@ python3 train.py -h
 
 ## File Specifications
 
-- **Forward_with_Layer_Setting.py**: Neural Network Architecture for layer setting and forward step with x, y, t input/ velocity u, pressure P, density rho viscoscity mu output variables.
-- **InitialConditionLoss.py**: For the equations in chapter 2.2 in [1], Binary Cross Entropy loss function and MSE function associated with these equations is defined.
+- **Forward_with_Layer_Setting.py**: Neural Network Architecture for layer setting and forward step with x, y, t input/ velocity u = (u1, u2), pressure P, representation phi(yilds density rho later) and chemical potential m_D output variables.
+- 
+- **InitialConditionLoss.py**: For the equations ?? in chapter ?? in [2], Binary Cross Entropy loss function and MSE function associated with these equations is defined.
 - **BoundaryLoss.py**: For the equations on left/right wall and top/bottom outer boundary of domain in chapter 2.2 in [1], MSE function associated with these equations is defined.
 - **MvBdry_Coefficient_and_Loss.py**: For the equations on moving boundary sharp interface in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
 - **NSpde_loss.py**: For the Navier-Stokes PDE equations in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
