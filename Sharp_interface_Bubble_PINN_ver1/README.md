@@ -43,7 +43,7 @@ git clone https://github.com/hiyouga/RepWalk.git](https://github.com/woooojng/Bu
 
 ## Usage
 
-### Train the model:
+### Train the model at Clonned `Sharp_interface_Bubble_PINN_ver1` directory in terminal:
 
 ```bash
 python3 train.py
