@@ -10,15 +10,14 @@ You can download the paper via: [[ResearchGate]](https://www.researchgate.net/pu
 
 ## Problem Summary
 
-This project presents methods to improve the performance of Physics Informed Neural Networks (PINNs). The enhanced PINNs are used to address complex problems involving rising bubble systems with free (moving) boundaries over time which is known as the most difficult part to simulate rising bubble. By integrating a time-adaptive approach with the level set method, the study aims to accurately model the dynamics of these moving boundaries in bubble systems.
+This project presents methods to improve the performance of Physics Informed Neural Networks (PINNs). The enhanced PINNs are used to address complex problems involving rising bubble systems with diffuse boundaries over time which is known as the most difficult part to simulate rising bubble. By integrating a time-adaptive approach with the level set method, the study aims to accurately model the dynamics of these diffuse boundaries in bubble systems.
 
-![](assets/example.jpg)
 
 ## Abstract
 
 The Physics-Informed Neural Network (PINN) merges neural networks (NN) with partial differential equations (PDEs), enabling direct solutions to intricate physical problems without strict dependence on labeled data. This cutting-edge approach synthesizes PDE principles with NN architecture to accurately predict system behavior, proving invaluable across diverse scientific and engineering domains.
 
-This project introduces strategies to enhance PINN approximating capabilities. Specifically, the study focuses on applying these enhanced PINNs to solve complex problems related to rising bubble systems with free boundaries(moving boundaries as time goes by), employing a time-adaptive approach in conjunction with the level set method. By simulating using the PINN framework and comparing outcomes with existing results, the research aims to assess qualitative patterns and identify potential novel insights. Furthermore, utilizing existing data to validate accuracy and refine the network through the PINN procedure may reveal convergence among different methods and shed light on the true behavior of the system. Additionally, exploring the Deep Ritz method, which shares similarities with PINNs, could provide deeper insights into the underlying energy minimization associated with the problem when compared against PINN outcomes.
+This project introduces strategies to enhance PINN approximating capabilities. Specifically, the study focuses on applying these enhanced PINNs to solve complex problems related to rising bubble systems with diffuse boundaries  as time goes by, employing a time-adaptive approach in conjunction with the level set method. By simulating using the PINN framework and comparing outcomes with existing results, the research aims to assess qualitative patterns and identify potential novel insights. Furthermore, utilizing existing data to validate accuracy and refine the network through the PINN procedure may reveal convergence among different methods and shed light on the true behavior of the system. Additionally, exploring the Deep Ritz method, which shares similarities with PINNs, could provide deeper insights into the underlying energy minimization associated with the problem when compared against PINN outcomes.
 
 ## Requirement
 
@@ -43,7 +42,7 @@ git clone https://github.com/hiyouga/RepWalk.git](https://github.com/woooojng/Bu
 
 ## Usage
 
-### Train the model:
+### Train the model at clonned `Diffuse_interface_Bubble_PINN_ver1` directory in terminal:
 
 ```bash
 python3 train.py
@@ -57,8 +56,9 @@ python3 train.py -h
 
 ## File Specifications
 
-- **Forward_with_Layer_Setting.py**: Neural Network Architecture for layer setting and forward step with x, y, t input/ velocity u, pressure P, density rho viscoscity mu output variables.
-- **InitialConditionLoss.py**: For the equations in chapter 2.2 in [1], Binary Cross Entropy loss function and MSE function associated with these equations is defined.
+- **Forward_with_Layer_Setting.py**: Neural Network Architecture for layer setting and forward step with x, y, t input/ velocity u = (u1, u2), pressure P, representation phi(yilds density rho later) and chemical potential m_D output variables.
+- 
+- **InitialConditionLoss.py**: For the equations ?? in chapter ?? in [2], Binary Cross Entropy loss function and MSE function associated with these equations is defined.
 - **BoundaryLoss.py**: For the equations on left/right wall and top/bottom outer boundary of domain in chapter 2.2 in [1], MSE function associated with these equations is defined.
 - **MvBdry_Coefficient_and_Loss.py**: For the equations on moving boundary sharp interface in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
 - **NSpde_loss.py**: For the Navier-Stokes PDE equations in chapter 2.1 in [1], MSE loss function associated with these equations is defined.
@@ -86,7 +86,9 @@ Ergebnisberichte des Instituts für Angewandte Mathematik, Nummer
 
 
 <a id="1">[2]</a> 
-C. L. Zhao, Solving allen-cahn and cahn-hilliard equations using the adaptive physics informed neural networks, Communications in Computational Physics 29, 2020.
+T.H.B. Demonta, S.K.F. Stotera, E.H. van Brummelen, 
+Numerical Investigation of the Sharp-Interface Limit of the
+Navier-Stokes-Cahn-Hilliard Equations, Journal of Fluid Mechanics,  970 , art. no. A24, 2023.
 
 [comment]: # (## Acknowledgments)
 
