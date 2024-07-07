@@ -43,11 +43,11 @@ def lossNSpde(net, x, y, t):
     
     #second derivatives
     u1_xx = torch.autograd.grad(u1_x.sum(),x,create_graph=True)[0] #Compute u1_xx
-    u1_xy = torch.autograd.grad(u1_x.sum(),y,create_graph=True)[0] #Compute u1_xy
+    #u1_xy = torch.autograd.grad(u1_x.sum(),y,create_graph=True)[0] #Compute u1_xy
     u1_yy = torch.autograd.grad(u1_y.sum(),y,create_graph=True)[0] #Compute u1_yy
     
     u2_xx = torch.autograd.grad(u2_x.sum(),x,create_graph=True)[0] #Compute u2_xx
-    u2_xy = torch.autograd.grad(u2_x.sum(),y,create_graph=True)[0] #Compute u2_xy
+    #u2_xy = torch.autograd.grad(u2_x.sum(),y,create_graph=True)[0] #Compute u2_xy
     u2_yy = torch.autograd.grad(u2_y.sum(),y,create_graph=True)[0] #Compute u2_yy
 
     
@@ -64,21 +64,21 @@ def lossNSpde(net, x, y, t):
     
     #Loss functions w.r.t. governing Navier-Stokes equation on inner space
     g = 0.98
-    NSpde_xcoord = (p*( u1_t + u1 * u1_x + u2 * u1_y) + P_x - (2 * m_x * u1_x + m_y * u2_x + m_y * u1_y)- m * (2*u1_xx +u2_xy + u1_yy) - p_x * g)
-    NSpde_ycoord = (p*( u2_t + u1 * u2_x + u2 * u2_y) + P_y - (m_x * u1_y + 2 * m_y * u2_y + m_x * u2_x)- m * (u1_xy +2*u2_yy + u2_xx) - p_y * g)
-    
-    NSpde_div_xcoord = u1_x + u1_y
-    NSpde_div_ycoord = u2_x + u2_y
+    #NSpde_xcoord = (p*( u1_t + u1 * u1_x + u2 * u1_y) + P_x - (2 * m_x * u1_x + m_y * u2_x + m_y * u1_y)- m * (2*u1_xx +u2_xy + u1_yy) - p_x * g)
+    NSpde_xcoord = (p*( u1_t + u1 * u1_x + u2 * u1_y) + P_x - (2 * m_x * u1_x + m_y * u2_x + m_y * u1_y)- m * (u1_xx + u1_yy) - p_x * g)
+    #NSpde_ycoord = (p*( u2_t + u1 * u2_x + u2 * u2_y) + P_y - (m_x * u1_y + 2 * m_y * u2_y + m_x * u2_x)- m * (u1_xy +2*u2_yy + u2_xx) - p_y * g)
+    NSpde_ycoord = (p*( u2_t + u1 * u2_x + u2 * u2_y) + P_y - (m_x * u1_y + 2 * m_y * u2_y + m_x * u2_x)- m * (u2_yy + u2_xx) - p_y * g)
     
     zero_NSpde_xcoord = torch.zeros_like(NSpde_xcoord)
     zero_NSpde_ycoord = torch.zeros_like(NSpde_ycoord)
-    
-    zero_NSpde_div_xcoord = torch.zeros_like(NSpde_div_xcoord)
-    zero_NSpde_div_ycoord = torch.zeros_like(NSpde_div_ycoord)
+
+    # \nabula \cdot u = 0
+    NSpde_div = u1_x + u2_y
+    zero_NSpde_div = torch.zeros_like(NSpde_div)
     
     # Define MSE Function on inner space
     NSpde_loss = (mse_cost_function(MvBdryCoefficient*NSpde_xcoord, zero_NSpde_xcoord) + mse_cost_function(MvBdryCoefficient*NSpde_ycoord, zero_NSpde_ycoord))
-    NSpde_div_loss = (mse_cost_function(MvBdryCoefficient*NSpde_div_xcoord, zero_NSpde_div_xcoord) + mse_cost_function(MvBdryCoefficient*NSpde_div_ycoord, zero_NSpde_div_ycoord))
+    NSpde_div_loss = mse_cost_function(MvBdryCoefficient*NSpde_div, zero_NSpde_div) 
     
     # Normalize
     #NSpde_loss = (NSpde_loss - NSpde_loss.mean())/(1+NSpde_loss.std())
