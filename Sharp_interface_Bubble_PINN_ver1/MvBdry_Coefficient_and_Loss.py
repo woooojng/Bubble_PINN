@@ -55,11 +55,11 @@ def lossMvBdry(net, x, y, t):
     #Begin computing jump in u
     #Compute slightly shifted values based on n
     small = .1 #Keep in mind the size of this
-    x_shift_inner = x - small * n1
-    x_shift_outer = x + small * n1
+    x_shift_inner = x + small * n1
+    x_shift_outer = x - small * n1
     
-    y_shift_inner = y - small * n2
-    y_shift_outer = y + small * n2
+    y_shift_inner = y + small * n2
+    y_shift_outer = y - small * n2
     
     #use normal vector to check continuity across the boundary
     u1_inner, u2_inner, P_inner, p_inner = net(x_shift_inner, y_shift_inner, t)
@@ -96,7 +96,7 @@ def lossMvBdry(net, x, y, t):
     n2_y_MvBdry = torch.autograd.grad(n2.sum(),y, create_graph=True)[0].to(device)
     k_MvBdry = n1_x_MvBdry + n2_y_MvBdry
     
-    #Compute SurfaceTension - I assumed surface tension coefficient as \sigma = 1
+    #Compute SurfaceTension - I assumed surface tension coefficient as \sigma = 24.5
     SurfaceTension_term1_xcoord_inner = -p_inner + m_inner * (u1_x_inner)
     SurfaceTension_term2_xcoord_inner = .5 * m_inner * (u1_y_inner + u2_x_inner)
     SurfaceTension_term1_ycoord_inner = .5 * m_inner * (u1_y_inner + u2_x_inner)
