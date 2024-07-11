@@ -120,9 +120,9 @@ class Net(nn.Module):
         #inputs = flatten(inputs)
         
         layer_u1_out = torch.sigmoid(self.hidden_layer1_u1(inputs))
-        layer_u1_out = self.hidden_layer1_u1N(layer_u1_out)
+        #layer_u1_out = self.hidden_layer1_u1N(layer_u1_out)
         layer_u1_out = torch.sigmoid(self.hidden_layer2_u1(layer_u1_out))
-        layer_u1_out = self.hidden_layer2_u1N(layer_u1_out)
+        #layer_u1_out = self.hidden_layer2_u1N(layer_u1_out)
         #layer_u1_out = torch.sigmoid(self.hidden_layer3_u1(layer_u1_out))
         #layer_u1_out = torch.sigmoid(self.hidden_layer4_u1(layer_u1_out))
         #layer_u1_out = torch.sigmoid(self.hidden_layer5_u1(layer_u1_out))
@@ -136,9 +136,9 @@ class Net(nn.Module):
         
         
         layer_u2_out = torch.sigmoid(self.hidden_layer1_u2(inputs))
-        layer_u2_out = self.hidden_layer1_u2N(layer_u2_out)
+        #layer_u2_out = self.hidden_layer1_u2N(layer_u2_out)
         layer_u2_out = torch.sigmoid(self.hidden_layer2_u2(layer_u2_out))
-        layer_u2_out = self.hidden_layer2_u2N(layer_u2_out)
+        #layer_u2_out = self.hidden_layer2_u2N(layer_u2_out)
         #layer_u2_out = torch.sigmoid(self.hidden_layer3_u2(layer_u2_out))
         #layer_u2_out = torch.sigmoid(self.hidden_layer4_u2(layer_u2_out))
         #layer_u2_out = torch.sigmoid(self.hidden_layer5_u2(layer_u2_out))
@@ -152,9 +152,9 @@ class Net(nn.Module):
         
         
         layer_P_out = torch.sigmoid(self.hidden_layer1_P(inputs))
-        layer_P_out = self.hidden_layer1_PN(layer_P_out)
+        #layer_P_out = self.hidden_layer1_PN(layer_P_out)
         layer_P_out = torch.sigmoid(self.hidden_layer2_P(layer_P_out))
-        layer_P_out = self.hidden_layer2_PN(layer_P_out)
+        #layer_P_out = self.hidden_layer2_PN(layer_P_out)
         #layer_P_out = torch.sigmoid(self.hidden_layer3_P(layer_P_out))
         #layer_P_out = torch.sigmoid(self.hidden_layer4_P(layer_P_out))
         #layer_P_out = torch.sigmoid(self.hidden_layer5_P(layer_P_out))
@@ -179,9 +179,9 @@ class Net(nn.Module):
         #output_rho = -900 * output_rho + 1000 * torch.ones_like(output_rho).to(device)
 
         layer_m_D_out = torch.sigmoid(self.hidden_layer1_m_D(inputs))
-        layer_m_D_out = self.hidden_layer1_m_DN(layer_m_D_out)
+        #layer_m_D_out = self.hidden_layer1_m_DN(layer_m_D_out)
         layer_m_D_out = torch.sigmoid(self.hidden_layer2_m_D(layer_m_D_out))
-        layer_m_D_out = self.hidden_layer2_m_DN(layer_m_D_out)
+        #layer_m_D_out = self.hidden_layer2_m_DN(layer_m_D_out)
         #layer_m_D_out = torch.sigmoid(self.hidden_layer3_m_D(layer_m_D_out))
         #layer_m_D_out = torch.sigmoid(self.hidden_layer4_m_D(layer_m_D_out))
         #layer_m_D_out = torch.sigmoid(self.hidden_layer5_m_D(layer_m_D_out))
@@ -208,7 +208,7 @@ class Net(nn.Module):
 
     def eta(self, x, y, t): #viscoscity mixture
         u1, u2, P, phi, _ = self(x,y,t)
-        eta = torch.exp(((1 - phi) * torch.log(10))/((1 + phi)*100 + (1 - phi)))
+        eta = torch.exp(((1 - phi) * np.log(10))/((1 + phi)*100 + (1 - phi)))
         return eta
 
     def J(self, x, y, t): #
@@ -221,26 +221,29 @@ class Net(nn.Module):
         J2 = self.mobility *(self.rho_1 - self.rho_2)/2*m_D_y
         return J1, J2
 
-    def tau(self, x, y, t): #viscous stress; diffrent from tangential vector on Mvbdry
+    def nabula_cdot_tau(self, x, y, t): #viscous stress; diffrent from tangential vector on Mvbdry
         u1, u2, P, phi, _ = self(x,y,t)
-
+        eta = self.eta(x, y, t)
         #Compute Derivatives
         u1_x = torch.autograd.grad(u1.sum(), x,create_graph=True)[0] #Compute u1_x
+        u1_xx = torch.autograd.grad(u1_x.sum(), x,create_graph=True)[0] #Compute u1_xx
         u1_y = torch.autograd.grad(u1.sum(), y,create_graph=True)[0] #Compute u1_y
+        u1_yy = torch.autograd.grad(u1_y.sum(), y,create_graph=True)[0] #Compute u1_yy
     
         u2_x = torch.autograd.grad(u2.sum(), x,create_graph=True)[0] #Compute u2_x
+        u2_xx = torch.autograd.grad(u2_x.sum(), x,create_graph=True)[0] #Compute u2_xx
         u2_y = torch.autograd.grad(u2.sum(), y,create_graph=True)[0] #Compute u2_y
-        tau11 = 2 *u1_x
-        tau12 = u1_y + u2_x
-        tau21 = u1_y + u2_x
-        tau22 = 2 *u2_y
+        u2_yy = torch.autograd.grad(u2_y.sum(), y,create_graph=True)[0] #Compute u2_yy
         
-        return tau11, tau12, tau21, tau22
+        nabula_cdot_tau1 = eta * (u1_xx + u1_yy)
+        nabula_cdot_tau2 = eta * (u2_xx + u2_yy)
+        
+        return nabula_cdot_tau1, nabula_cdot_tau2
     
     def zeta(self, x, y, t): #
         u1, u2, P, phi, m = self(x,y,t)
         psi = self.psi(x,y,t)
-
+        
         #Compute Derivatives
         phi_x = torch.autograd.grad(phi.sum(), x,create_graph=True)[0] #Compute phi_x
         phi_y = torch.autograd.grad(phi.sum(), y,create_graph=True)[0] #Compute phi_y
