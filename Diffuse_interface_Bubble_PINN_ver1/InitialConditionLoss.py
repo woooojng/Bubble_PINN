@@ -62,7 +62,8 @@ def InitialCondition_phi(net, x, y): #Equation (4.2) in the paper DSB23
     #Transform the values into domain1 density 1000 or domain2 density 100 w.r.t. pos/neg distance
     #indicator[:, 0] = torch.where(indicator[:, 0] > 0, net.rho_1, 0)
     #indicator[:, 1] = torch.where(indicator[:, 1] > 0, 0, net.rho_2)
-    indicator[:, 0] = torch.where(indicator[:, 0] > 0, np.tanh(-1/(2*net.epsilon_thick)), np.tanh(1/(2*net.epsilon_thick)))
+    indicator[:, 0] = torch.where(indicator[:, 0] > 0, np.tanh(-1/(np.sqrt(2)*net.epsilon_thick)), np.tanh(1/(np.sqrt(2)*net.epsilon_thick)))
+    # tanh( 1/(sqrt(2)*.1) ) = 0.99999855729...
 
     
     return indicator
