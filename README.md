@@ -19,8 +19,12 @@ The Physics-Informed Neural Network (PINN) merges neural networks (NN) with part
 
 This project introduces strategies to enhance PINN approximating capabilities. Specifically, the study focuses on applying these enhanced PINNs to solve complex problems related to rising bubble systems with free boundaries(moving boundaries as time goes by), employing a time-adaptive approach in conjunction with the level set method. By simulating using the PINN framework and comparing outcomes with existing results, the research aims to assess qualitative patterns and identify potential novel insights. Furthermore, utilizing existing data to validate accuracy and refine the network through the PINN procedure may reveal convergence among different methods and shed light on the true behavior of the system. Additionally, exploring the Deep Ritz method, which shares similarities with PINNs, could provide deeper insights into the underlying energy minimization associated with the problem when compared against PINN outcomes.
 
-## Phases to develop PINN model
+## Difficulties on each step to develop PINN model
+Error on Gradient Blowing
 
+Fine Tuning - Transfer learning on pre-training
+
+Making bubble shape as time goes by further from the given initial bubble shape - Transfer learning by combining 2nd network
 ## Contact
 
 wki1 [AT] iu [DOT] edu
