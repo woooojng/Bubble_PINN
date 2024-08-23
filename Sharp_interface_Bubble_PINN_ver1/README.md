@@ -86,6 +86,12 @@ Ergebnisberichte des Instituts für Angewandte Mathematik, Nummer
 
 
 <a id="1">[2]</a> 
+Hysing S. Performance in Two-Phase Flow Simulations: Finite Elements
+and the Level Set Method. PhD Thesis, Dortmund University, Institute of
+Applied Mathematics and Numerics (LS3), Dortmund, to be published in
+2007.
+
+<a id="1">[3]</a> 
 C. L. Zhao, Solving allen-cahn and cahn-hilliard equations using the adaptive physics informed neural networks, Communications in Computational Physics 29, 2020.
 
 [comment]: # (## Acknowledgments)
