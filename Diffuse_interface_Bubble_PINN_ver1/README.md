@@ -19,17 +19,19 @@ The Physics-Informed Neural Network (PINN) merges neural networks (NN) with part
 
 This project introduces strategies to enhance PINN approximating capabilities. Specifically, the study focuses on applying these enhanced PINNs to solve complex problems related to rising bubble systems with diffuse boundaries  as time goes by, employing a time-adaptive approach in conjunction with the level set method. By simulating using the PINN framework and comparing outcomes with existing results, the research aims to assess qualitative patterns and identify potential novel insights. Furthermore, utilizing existing data to validate accuracy and refine the network through the PINN procedure may reveal convergence among different methods and shed light on the true behavior of the system. Additionally, exploring the Deep Ritz method, which shares similarities with PINNs, could provide deeper insights into the underlying energy minimization associated with the problem when compared against PINN outcomes.
 
-"\n",
-    "In this notebook, we are going to combine different two networks to apply the adaptive time marching strategy in the paper [1]. To describe in detail for this strategy, by discretizing time domain evenly, one network simulate PDE system on a time period and the next similar but different network simulate successively from the ending point of the former network. Therefore, as the name of itself, this strategy is applying simulation adaptively by marching on discretized time domain.\n",
-    "\n",
-    "On our simulation, the first network on time \\[0, .1\\] is made with the loss function added up for the loss terms coming from initial configuration equations, boundary condition equations and the following NS PDE equations.(See [1])\n",
-    "$$\n",
-    "\\rho (x) \\left( \\frac{\\partial u}{\\partial t} + u \\cdot \\nabla u \\right) = - \\nabla p +  \\eta({\\phi }) \\Delta u + \\rho (x) g,\n",
-    "$$$$\n",
-    "\t\t\\nabla \\cdot u = 0,$$$$\n",
-    "\t\t[u]|_\\Gamma = 0, $$$$\n",
-    "\t\t[pI + \\eta (\\nabla u + (\\nabla u)^T)]|_\\Gamma \\cdot n = \\sigma_{DA} \\kappa n .\\\\[5pt]\n",
-    "$$\n"
+In this notebook, we are going to combine different two networks to apply the adaptive time marching strategy in the paper [1]. To describe in detail for this strategy, by discretizing time domain evenly, one network simulate PDE system on a time period and the next similar but different network simulate successively from the ending point of the former network. Therefore, as the name of itself, this strategy is applying simulation adaptively by marching on discretized time domain.
+
+On our simulation, the first network on time $\[0, .1\]$ is made with the loss function added up for the loss terms coming from initial configuration equations, boundary condition equations and the following NS PDE equations.(See [1])
+    $$
+    \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,
+    $$
+    $$
+    \nabla \cdot u = 0,$$
+    $$
+    [u]|_\Gamma = 0, $$
+    $$
+    [pI + \eta (\nabla u + (\nabla u)^T)]|_\Gamma \cdot n = \sigma_{DA} \kappa n .
+    $$
 
 ## Requirement
 
