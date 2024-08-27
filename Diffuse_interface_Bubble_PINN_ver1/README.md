@@ -22,16 +22,18 @@ This project introduces strategies to enhance PINN approximating capabilities. S
 In this notebook, we are going to combine different two networks to apply the adaptive time marching strategy in the paper [1]. To describe in detail for this strategy, by discretizing time domain evenly, one network simulate PDE system on a time period and the next similar but different network simulate successively from the ending point of the former network. Therefore, as the name of itself, this strategy is applying simulation adaptively by marching on discretized time domain.
 
 On our simulation, the first network on time $\[0, .1\]$ is made with the loss function added up for the loss terms coming from initial configuration equations, boundary condition equations and the following NS PDE equations.(See [1])
-    $$
+
+
+$$
     \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,
-    $$
-    $$
+$$
+$$
     \nabla \cdot u = 0,$$
-    $$
+$$
     [u]|_\Gamma = 0, $$
-    $$
+$$
     [pI + \eta (\nabla u + (\nabla u)^T)]|_\Gamma \cdot n = \sigma_{DA} \kappa n .
-    $$
+$$
 
 ## Requirement
 
