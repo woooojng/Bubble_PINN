@@ -25,12 +25,9 @@ On our simulation, the first network on time $\[0, .1\]$ is made with the loss f
 
 ```math
 \begin{array}{c}
-    \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,
-//
-    \nabla \cdot u = 0,$$
-$$
-    [u]|_\Gamma = 0, $$
-$$
+    \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,\
+    \nabla \cdot u = 0,\
+    [u]|_\Gamma = 0,\
     [pI + \eta (\nabla u + (\nabla u)^T)]|_\Gamma \cdot n = \sigma_{DA} \kappa n .
 \end{array}
 ```
