@@ -23,7 +23,7 @@ In this notebook, we are going to combine different two networks to apply the ad
 
 On our simulation, the first network on time $\[0, .1\]$ is made with the loss function added up for the loss terms coming from initial configuration equations, boundary condition equations and the following NS PDE equations.(See [1])
 
-
+```math
 $$
     \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,
 $$
@@ -34,7 +34,7 @@ $$
 $$
     [pI + \eta (\nabla u + (\nabla u)^T)]|_\Gamma \cdot n = \sigma_{DA} \kappa n .
 $$
-
+```
 ## Requirement
 
 - Python 3.6
