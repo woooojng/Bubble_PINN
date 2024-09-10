@@ -68,6 +68,7 @@ python3 train.py -h
 - **visualize_Bubble_PINN.py**: Result graph of first initial condition training before total training. For initial configuration at time 0, we was able to see the t=0 starting circlular bubble with this graph.
 - **Initial_Condition_Result_Circle.pdf**: The pdf file of the graph of 'visualize_Bubble_PINN.py'.
 - **Train_whole_loop_6.22.html**: Result of whole Train process, containing Initial condition 30,000 iterations training with loss 0.0005 and total loss of all conditions 160,000 iterations training with learning rate .0001, .00001, .000005, .000001.
+- **Center_of_mass_function.py**: Centroid is computed from the result of the training. The values follows the paper[1].
 
 ## Reference
 
