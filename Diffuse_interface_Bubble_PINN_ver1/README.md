@@ -23,17 +23,18 @@ In this notebook, we are going to combine different two networks to apply the ad
 
 On our simulation, the first network on time $\[0, .1\]$ is made with the loss function added up for the loss terms coming from initial configuration equations, boundary condition equations and the following NS PDE equations.(See [1])
 
-
-$$
-    \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,
-$$
-$$
-    \nabla \cdot u = 0,$$
-$$
-    [u]|_\Gamma = 0, $$
-$$
+```math
+\begin{array}{c}
+    \rho (x) \left( \frac{\partial u}{\partial t} + u \cdot \nabla u \right) = - \nabla p +  \eta({\phi }) \Delta u + \rho (x) g,\
+    \nabla \cdot u = 0,\
+    [u]|_\Gamma = 0,\
     [pI + \eta (\nabla u + (\nabla u)^T)]|_\Gamma \cdot n = \sigma_{DA} \kappa n .
-$$
+\end{array}
+```
+After simulation of the first network, we move on to the second network with the first network model trrained data of saving and loading with command `net.state_dict()`. A notable consideration is that the initial condition cannot be used for the second networks, as it is only valid for t = 0. Instead, the prediction from the previous time steps network serves as the initial condition for the second network. This combined network continues to combaine at the end of the second network until the entire time domain of the original problem is addressed. The individual networks can be integrated to obtain a solution at any point within the domain of the original problem.
+
+These adaptive strategies, encompassing both time and space, enhance the accuracy of the improved
+PINNS by avoiding certain local minimum or saddle points. encountered in the baseline PINN.
 
 ## Requirement
 
