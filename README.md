@@ -22,7 +22,7 @@ This project introduces strategies to enhance PINN approximating capabilities. S
 ## Difficulties on each step to develop PINN model
 Error on Gradient Blowing
 
-Fine Tuning - Transfer learning on pre-training
+Fine Tuning - Transfer learning on pre-trained Neural Network
 
 Making bubble shape as time goes by further from the given initial bubble shape - Transfer learning by combining 2nd network
 ## Contact
