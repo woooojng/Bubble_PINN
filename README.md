@@ -1,4 +1,4 @@
-# Physics Informed Neural Network(PINN) of the Rising Bubble Dynamics
+# Physics Informed Neural Network(PINN) of the Rising Bubble Dynamics (Practice Experiments)
 
 
 This folder is code for our paper simulating the rising bubble dynamics by using PINN. There are two versions of governing equation of the rising bubble, in sharp interface ver. and diffuse interface ver. for the boundary of bubble.
